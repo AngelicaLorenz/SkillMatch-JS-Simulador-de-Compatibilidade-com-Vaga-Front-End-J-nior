@@ -70,7 +70,7 @@ class VagaFrontEnd extends Vaga {
 // RF08 - Função principal de análise usando métodos de array
 function analisarVagas(candidato, listaVagas) {
     // RF03 - O .map() vai percorrer cada vaga e retornar um relatório para cada uma
-    const relatorios = listaVagas.map(Vaga => {
+    const relatorios = listaVagas.map(vaga => {
         // RF08 e RF05 - O .filter() cruza os requisitos da vaga com as habilidades do candidato
         // Aqui descobrimos quais requisitos a vaga pede que o candidato JÁ TEM
         const habilidadesCorrespondentes = vaga.requisitos.filter(req => 
@@ -111,4 +111,34 @@ function analisarVagas(candidato, listaVagas) {
     return relatorios;
 }
 
+// RF06 - Identificar a maior compatibilidade usando o método .reduce()
+function encontrarMelhorVaga(listaRelatorios) {
+    if (listaRelatorios.length === 0) return "Nenhum relatório encontrado.";
 
+    // O .reduce() compara os relatórios e mantém o de maior porcentagem
+    const melhorVaga = listaRelatorios.reduce((melhor, atual) => {
+        // Se a porcentagem da vaga atual for maior que a do melhor até agora, ela vira a nova melhor
+        return atual.porcentagem > melhor.porcentagem ? atual : melhor;
+    });
+
+    return melhorVaga;
+}
+
+// RF07 - Gerar recomendação de estudo agrupando as habilidades faltantes
+function gerarRecomendacaoEstudos(listaRelatorios) {
+    let todasAsFalta = [];
+
+    listaRelatorios.forEach(relatorio => {
+        todasAsFalta = todasAsFalta.concat(relatorio.faltantes);
+    });
+
+
+ // Remove elementos duplicados para a lista ficar limpa (ex: se mais de uma vaga pedir NodeJS)   
+const habilidadesUnicas = [...new Set(todasAsFalta)];
+
+if (habilidadesUnicas.length === 0) {
+    return "Parabéns! Você atende a todos os requisitos de todas as vagas analisadas!";
+}
+
+return `Recomendação de Estudos: Com base nas vagas analisadas, sugerimos focar no aprendizado de: ${habilidadesUnicas.join(", ")}.`;
+}
