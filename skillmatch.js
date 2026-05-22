@@ -142,3 +142,16 @@ if (habilidadesUnicas.length === 0) {
 
 return `Recomendação de Estudos: Com base nas vagas analisadas, sugerimos focar no aprendizado de: ${habilidadesUnicas.join(", ")}.`;
 }
+
+// RF13 - Mecanismo de Closure para contar as análises realizadas
+function criarContadorAuditoria(){
+    let totalAnalises = 0; //Variável privada protegida pelo closure.
+     //Retorna a função interna que tem acesso à variável de cima
+     return function(){
+        totalAnalises++;
+        return `Auditoria: O sistema já processou um total de ${totalAnalises} análises nesta execução.`;
+     };
+}
+
+// Inicializa a closure criando o mensageiro oficial do contador
+const registrarAnalise = criarContadorAuditoria();
