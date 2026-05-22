@@ -66,3 +66,49 @@ class VagaFrontEnd extends Vaga {
     return `Nível da vaga: ${this.nivel}`;
     }
 }
+
+// RF08 - Função principal de análise usando métodos de array
+function analisarVagas(candidato, listaVagas) {
+    // RF03 - O .map() vai percorrer cada vaga e retornar um relatório para cada uma
+    const relatorios = listaVagas.map(Vaga => {
+        // RF08 e RF05 - O .filter() cruza os requisitos da vaga com as habilidades do candidato
+        // Aqui descobrimos quais requisitos a vaga pede que o candidato JÁ TEM
+        const habilidadesCorrespondentes = vaga.requisitos.filter(req => 
+            candidato.habilidades.includes(req)
+    );
+
+    // RF05 - Aqui filtramos o que o candidato NÃO TEM
+    const habilidadesFaltantes = vaga.requisitos.filter(req =>
+        !candidato.habilidades.includes(req)
+    );
+
+    // RF03 - Cálculo matemático da porcentagem de compatibilidade
+    const totalRequisitos = vaga.requisitos.length;
+    const totalAcertos = habilidadesCorrespondentes.length;
+    const porcentagem = Math.round((totalAcertos / totalRequisitos) * 100);
+
+    // RF04 - Estrutura condicional para classificar a compatibilidade
+    let classificacao = "";
+    if (porcentagem >= 80) {
+        classificacao = "Alta compatibilidade";
+    } else if (porcentagem >= 50) {
+        classificacao = "Média compatibilidade";        
+    } else {
+        classificacao = "Baixa compatibilidade";
+    }
+
+    // Retorna o objeto do relatório individual desta vaga estruturado
+    return {
+        vaga: vaga.cargo,
+        empresa: vaga.empresa,
+        nivelCargo: vaga.nivel || "Não especificado", // Exibe o nível da vaga (Júnior/Pleno/Estágio)
+        porcentagem: porcentagem,
+        compatibilidade: classificacao,
+        faltantes: habilidadesFaltantes
+    };
+    });
+
+    return relatorios;
+}
+
+
