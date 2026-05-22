@@ -35,3 +35,4 @@ const vagas = [
         modalidade: "Presencial"
     }
 ];
+
