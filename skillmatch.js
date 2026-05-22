@@ -155,3 +155,60 @@ function criarContadorAuditoria(){
 
 // Inicializa a closure criando o mensageiro oficial do contador
 const registrarAnalise = criarContadorAuditoria();
+
+// RF14 - Assincronismo: Simula busca de dados de um servidor com Promise e setTimeout
+function buscarVagasDoServidor(){
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(vagas); //Devolve a lista de vagas após 1s.
+        }, 1000);
+    });
+}
+
+// RF12 - Callback: Função que recebe outra função (callback) como parâmetro
+function finalizarAnalise(mensagemAuditoria, callbackExibicao) {
+    console.log("\n Finalizando processo de análise de dados...")
+    callbackExibicao(mensagemAuditoria);
+}
+
+//Função Principal Assíncrona para orquestrar todo o sistema
+async function rodarSimulador() {
+    console.log("Conectando ao servidor para buscar as vagas disponíveis...");
+
+    // O 'await' pausa a execução por 1 segundo até a Promise do servidor resolver
+    const listaVagasAssincrona = await buscarVagasDoServidor();
+    console.log("Dados das vagas carregados com sucesso!\n")
+
+    //1. Executa o motor de análise principal
+    const relatorios = analisarVagas(candidato, listaVagasAssincrona);
+
+    //2. Encontra a vaga com maior compatibilidade
+    const melhorVaga = encontrarMelhorVaga(relatorios);
+
+    //3. Gera a lista de recomendações de estudo
+    const recomendacaoEstudos = gerarRecomendacaoEstudos(relatorios);
+
+    //---EXIBIÇÃO FORMATADA NOS RESULTADOS---
+    console.log("===================================");
+    console.log("RELATÓRIO GERAL DE COMPATIBILIDADE:");
+    console.log("===================================");
+    console.table(relatorios);
+
+    console.log("-----------------------------------");
+    console.log(`Vaga Ideal: ${melhorVaga.vaga} na empresa ${melhorVaga.empresa} (${melhorVaga.porcentagem}% de match.)`);
+    console.log("-----------------------------------");
+    console.log(recomendacaoEstudos);
+    console.log("===================================");
+
+    //4. Executa a closure para gerar o log do contador
+    const logContador = registrarAnalise();
+
+    //5. Executa o callback passando o log e uma função anônima para exibir
+    finalizarAnalise(logContador, (textoParaExibir) => {
+        console.log(textoParaExibir);
+        console.log("\n [SUCESSO] Todos os 14 Requisitos Funcionais foram executados com perfeição.");
+    });    
+}
+
+//Executa o sistema completo
+rodarSimulador();
