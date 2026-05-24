@@ -2,7 +2,7 @@
 const candidato = {
     nome: "Angélica",
     area: "Front-End",
-    habilidades: ["HTML", "CSS", "JavaScript", "Github", "Lógica de Programação", "Kanban"],
+    habilidades: ["HTML", "JavaScript", "Github", "Lógica de Programação", "Kanban"],
     experienciaMeses: 8
 };
 
@@ -12,7 +12,7 @@ const vagas = [
         id: 1,
         empresa: "Tech Systems",
         cargo: "Desenvolvedor Front-End Júnior",
-        requisitos: ["HTML", "CSS", "JavaScript", "Github", "Lógica de Programação"],
+        requisitos: ["HTML", "JavaScript", "Github", "Lógica de Programação"],
         salario: 2900,
         modalidade: "Remoto",
         nivel: "Júnior"
@@ -128,9 +128,9 @@ function encontrarMelhorVaga(listaRelatorios) {
 function gerarRecomendacaoEstudos(listaRelatorios) {
     let todasAsFalta = [];
 
-    listaRelatorios.forEach(relatorio => {
+    for (const relatorio of listaRelatorios) {
         todasAsFalta = todasAsFalta.concat(relatorio.faltantes);
-    });
+    }
 
 
  // Remove elementos duplicados para a lista ficar limpa (ex: se mais de uma vaga pedir NodeJS)   
