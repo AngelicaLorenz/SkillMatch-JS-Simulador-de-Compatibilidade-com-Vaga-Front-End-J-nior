@@ -6,39 +6,6 @@ const candidato = {
     experienciaMeses: 8
 };
 
-// RF02 - Array com pelo menos 03 vagas fictícias
-const vagas = [
-    {
-        id: 1,
-        empresa: "Tech Systems",
-        cargo: "Desenvolvedor Front-End Júnior",
-        requisitos: ["HTML", "JavaScript", "Github", "Lógica de Programação"],
-        salario: 2900,
-        modalidade: "Remoto",
-        nivel: "Júnior"
-    },
-
-    {
-        id: 2,
-        empresa: "123 Code",
-        cargo: "Estágio Front-End",
-        requisitos: ["HTML", "CSS", "JavaScript"],
-        salario: 1700,
-        modalidade: "Híbrido",
-        nivel: "Estágio"
-    },
-
-    {
-        id: 3,
-        empresa: "Web Tech",
-        cargo: "Programador Javascript Pleno",
-        requisitos: ["JavaScript", "NodeJS", "Github", "Kanban", "Lógica de Programação"],
-        salario: 3500,
-        modalidade: "Presencial",
-        nivel: "Pleno"
-    }
-];
-
 // RF09 - Classe Base Vaga
 class Vaga {
     constructor(empresa, cargo, requisitos, salario, modalidade){
@@ -66,6 +33,41 @@ class VagaFrontEnd extends Vaga {
     return `Nível da vaga: ${this.nivel}`;
     }
 }
+
+// RF02 - Array com pelo menos 03 vagas fictícias
+const vagas = [
+
+    new VagaFrontEnd(
+        "Tech Systems",
+        "Desenvolvedor Front-End Júnior",
+        ["HTML", "JavaScript", "Github", "Lógica de Programação"],
+        2900,
+        "Remoto",
+        "Júnior"
+    ),
+
+    {
+        id: 2,
+        empresa: "123 Code",
+        cargo: "Estágio Front-End",
+        requisitos: ["HTML", "CSS", "JavaScript"],
+        salario: 1700,
+        modalidade: "Híbrido",
+        nivel: "Estágio"
+    },
+
+    {
+        id: 3,
+        empresa: "Web Tech",
+        cargo: "Programador Javascript Pleno",
+        requisitos: ["JavaScript", "NodeJS", "Github", "Kanban", "Lógica de Programação"],
+        salario: 3500,
+        modalidade: "Presencial",
+        nivel: "Pleno"
+    }
+];
+
+
 
 // RF08 - Função principal de análise usando métodos de array
 function analisarVagas(candidato, listaVagas) {
