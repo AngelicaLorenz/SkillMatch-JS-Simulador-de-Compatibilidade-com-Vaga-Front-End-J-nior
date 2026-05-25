@@ -73,7 +73,7 @@ const vagas = [
 function analisarVagas(candidato, listaVagas) {
     // RF03 - O .map() vai percorrer cada vaga e retornar um relatório para cada uma
     const relatorios = listaVagas.map(vaga => {
-        // RF08 e RF05 - O .filter() cruza os requisitos da vaga com as habilidades do candidato
+        // O .filter() cruza os requisitos da vaga com as habilidades do candidato
         // Aqui descobrimos quais requisitos a vaga pede que o candidato JÁ TEM
         const habilidadesCorrespondentes = vaga.requisitos.filter(req => 
             candidato.habilidades.includes(req)
