@@ -38,7 +38,7 @@ Este projeto pode ser executado tanto no navegador quanto no Node.js.
 2. Abra o terminal integrado;
 3. Execute o comando:
 
-```bash
+
 node skillmatch.js
 
 ---
@@ -163,7 +163,7 @@ skillmatch-js/
 └── README.md
 ```
 
----
+
 
 # Organização do Projeto (Kanban)
 
